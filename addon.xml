@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="screensaver.mypicsdb2.slideshow" name="My Pictures Database Slideshow" version="1.0.0" provider-name="sfontes">
+	<requires>
+		<import addon="xbmc.python" version="3.0.0" />
+		<import addon="script.module.mypicsdb2lib" version="19.4.0"/>
+	</requires>
+	<extension point="xbmc.ui.screensaver" library="default.py" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Slideshow of pictures from the [I]My Pictures Database[/I] addon</summary>
+		<description lang="en_GB">The screensaver uses the picture database created by the [I]My Pictures Database[/I] addon. You can use Filters created in the [I]My Pictures Database[/I] addon to select which pictures are shown in the slideshow.
+		</description>
+		<disclaimer lang="en_GB">Tested only with Kodi 19.4 and My Pictures Database 19.4.4</disclaimer>
+		<platform>all</platform>
+		<license>GPL-2.0-only</license>
+		<forum></forum>
+		<source></source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<fanart>resources/fanart.jpg</fanart>
+		</assets>
+		<news></news>
+	</extension>
+	<extension point="xbmc.python.library" library="lib/getfilternames.py"/>
+</addon>

@@ -1,0 +1,72 @@
+# Kodi Media Center language file
+# Addon Name: My Pictures Database Slideshow
+# Addon id: screensaver.mypicsdb2.slideshow
+# Addon Provider: sfontes
+
+msgctxt "Addon Summary"
+msgid "Screensaver that displays a slideshow of pictures from the [I]My Pictures Database[/I] addon"
+msgstr "Screensaver that displays a slideshow of pictures from the [I]My Pictures Database[/I] addon"
+
+msgctxt "Addon Description"
+msgid "The screensaver uses the picture database created by the [I]My Pictures Database[/I] addon. You can use Filters created in the [I]My Pictures Database[/I] addon to select which pictures are shown in the slideshow."
+msgstr "The screensaver uses the picture database created by the [I]My Pictures Database[/I] addon. You can use Filters created in the [I]My Pictures Database[/I] addon to select which pictures are shown in the slideshow."
+
+msgctxt "#30000"
+msgid "General"
+msgstr "General"
+
+msgctxt "#30001"
+msgid "Amount of seconds to display each image"
+msgstr "Amount of seconds to display each image"
+
+msgctxt "#30002"
+msgid "Use 'My Pictures Database' Filter for pictures"
+msgstr "Use 'My Pictures Database' Filter for pictures"
+
+msgctxt "#30003"
+msgid "Filter Name"
+msgstr "Filter Name"
+
+msgctxt "#30004"
+msgid "Update Filter Names"
+msgstr "Update Filter Names"
+
+msgctxt "#30005"
+msgid "Slideshow settings error"
+msgstr "Slideshow settings error"
+
+msgctxt "#30006"
+msgid "Filter name was not specified"
+msgstr "Filter name was not specified"
+
+msgctxt "#30007"
+msgid "Filtername '%s' not found in MyPictures Database"
+msgstr "Filtername '%s' not found in MyPictures Database"
+
+msgctxt "#30008"
+msgid "No files match filter '%s'in MyPictures Database"
+msgstr "No files match filter '%s'in MyPictures Database"
+
+msgctxt "#30009"
+msgid "Filter Names Updated"
+msgstr "Filter Names Updated"
+
+msgctxt "#30010"
+msgid "Exit from 'Settings' and return to see new Filter Names"
+msgstr "Exit from 'Settings' and return to see new Filter Names"
+
+msgctxt "#30101"
+msgid "Specifies how long each image will be shown."
+msgstr "Specifies how long each image will be shown"
+
+msgctxt "#30102"
+msgstr "Help for Use My Pictures Database Filter"
+msgid "Select a Filter, and all pictures in the slideshow will match the filter"
+
+msgctxt "#30103"
+msgstr "Help for Filter Name"
+msgid "The name of the Filter to use for matching."
+
+msgctxt "#30104"
+msgstr "Help for Update Filter Names"
+msgid "Select this if the list of Filters to choose from is not up-to-date. After updating the Filter Names, you must exit from 'Settings' and return in order to see the updated Filter names."
