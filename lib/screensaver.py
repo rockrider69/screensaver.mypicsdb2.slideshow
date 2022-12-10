@@ -43,7 +43,21 @@ def log(msg, level=xbmc.LOGINFO):
         xbmc.log(str("[%s] line %5d in %s >> %s"%(ADDON.getAddonInfo('name'), int(lineno), filename, msg.__str__())), level)
 
 # Formats that can be displayed in a slideshow
-PICTURE_FORMATS = ('bmp', 'jpeg', 'jpg', 'gif', 'png', 'tiff', 'mng', 'ico', 'pcx', 'tga')
+PICTURE_FORMATS = ('jpg', 'jpeg', 'tiff', 'gif', 'png', 'bmp', 'mng', 'ico', 'pcx', 'tga')
+SINGLE_PICTURE_QUERY =  """ SELECT strPath, strFilename FROM Files """
+SINGLE_PICTURE_QUERY += """ WHERE strFilename LIKE '%s' """ 
+SINGLE_PICTURE_QUERY += """    OR strFilename LIKE '%s' """
+SINGLE_PICTURE_QUERY += """    OR strFilename LIKE '%s' """
+SINGLE_PICTURE_QUERY += """    OR strFilename LIKE '%s' """
+SINGLE_PICTURE_QUERY += """    OR strFilename LIKE '%s' """
+SINGLE_PICTURE_QUERY += """    OR strFilename LIKE '%s' """
+SINGLE_PICTURE_QUERY += """    OR strFilename LIKE '%s' """
+SINGLE_PICTURE_QUERY += """    OR strFilename LIKE '%s' """
+SINGLE_PICTURE_QUERY += """    OR strFilename LIKE '%s' """
+SINGLE_PICTURE_QUERY += """    OR strFilename LIKE '%s' """
+SINGLE_PICTURE_QUERY += """ ORDER BY RANDOM() LIMIT 1 """ 
+SINGLE_PICTURE_QUERY = SINGLE_PICTURE_QUERY % PICTURE_FORMATS
+SINGLE_PICTURE_QUERY = SINGLE_PICTURE_QUERY.replace("LIKE '", "LIKE '%")
 
 # Get the Database from the My Pictures Database addon
 MPDB = MypicsDB.MyPictureDB()
@@ -119,11 +133,8 @@ class Screensaver(xbmcgui.WindowXMLDialog):
         # loop until onScreensaverDeactivated is called
         while (not self.Monitor.abortRequested()) and (not self.stop):
             # Get the next picture
-            (folder, file) = self._get_item()
-            img_name = os.path.join(folder, file)
+            img_name = self._get_item()
             current_image_control.setImage(img_name, False)
-            # give xbmc some time to load the image
-            xbmc.sleep(1000)
             self._set_prop('Fade%d' % order[0], '0')
             self._set_prop('Fade%d' % order[1], '1')
             # define next image
@@ -143,11 +154,8 @@ class Screensaver(xbmcgui.WindowXMLDialog):
             if  self.stop or self.Monitor.abortRequested():
                 break
 
-    def exec_query(self,query):
-        return MPDB.cur.request(query)
-
     def _get_item(self, update=False):
-        if self.slideshow_filter and self.slideshow_filtername != "":
+        if self.slideshow_filter:
             # Using a filter
             # Use the next picture that matched the filter
             result = self.filtered_results[self.filtered_results_index]
@@ -159,18 +167,15 @@ class Screensaver(xbmcgui.WindowXMLDialog):
                 self.filtered_results_index = 0
         else:
             # Not using a filter
-            displayable = False
-            while not displayable:
-                query = """ SELECT strPath, strFilename FROM Files ORDER BY RANDOM() LIMIT 1"""
-                result_list = self.exec_query(query)
-                log(result_list)
-                result = result_list[0]
-                # Make sure only diplayable pictures are used
-                if result[1].lower().endswith(PICTURE_FORMATS):
-                    displayable = True
-        return result
+            result_list = self.exec_query(SINGLE_PICTURE_QUERY)
+            result = result_list[0]
+        (folder, file) = result
+        return os.path.join(folder, file)
 
     # Utility functions
+    def exec_query(self,query):
+        return MPDB.cur.request(query)
+
     def _set_prop(self, name, value):
         self.winid.setProperty('SlideView.%s' % name, value)
 

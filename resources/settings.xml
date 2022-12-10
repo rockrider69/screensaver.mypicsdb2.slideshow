@@ -22,14 +22,14 @@
 				</setting>
 				<setting help="30103" id="filtername" type="string" label="30003" parent="filter">
 					<level>0</level>
-					<default />
+					<default></default>
 					<constraints>
 						<options>
-						<option>2013 07 30</option><option>Austria</option><option>Blowing Rock</option><option>Foreign</option><option>Linda and Steve</option><option>London</option><option>test all</option></options>
+						</options>
 						<allowempty>true</allowempty>
 					</constraints>
 					<control type="list" format="string">
-						<heading>30022</heading>
+						<heading>30003</heading>
 					</control>
 					<dependencies>
 						<dependency type="visible">

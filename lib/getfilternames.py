@@ -29,7 +29,6 @@ MPDB = MypicsDB.MyPictureDB()
 query = """Select strFilterName FROM FilterWizard"""
 filter_names_list = MPDB.cur.request(query)
 filter_names = [name[0] for name in filter_names_list]
-filter_names.pop(0) # Remove 'Last Filter Used' filter name
 
 # Find where to insert the filter names in the settings.xml file
 settings_file = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', "settings.xml")
@@ -44,6 +43,12 @@ for option in options.findall('option'):
 for filter_name in filter_names:
     option=ET.SubElement(options,'option')
     option.text=filter_name
+
+# Add first filter name as default value if there are any filters
+if len(filter_names) > 0:
+    default = tree.find(".//*setting[@id='filtername']/default")
+    default.text=filter_names[0]
+
 tree.write(settings_file)
 
 # Notify that you must exit from settings and return to see any new filter names
