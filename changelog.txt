@@ -1,2 +1,5 @@
 v1.0.0
 - initial release
+v1.1.0
+- addedd support for mysql
+- added some information from image tags to display on screensaver images
