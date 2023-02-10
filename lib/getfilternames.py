@@ -52,6 +52,6 @@ if len(filter_names) > 0:
 tree.write(settings_file)
 
 # Notify that you must exit from settings and return to see any new filter names
-heading = xbmcaddon.Addon().getLocalizedString(30009) 
-message = xbmcaddon.Addon().getLocalizedString(30010) 
+heading = xbmcaddon.Addon().getLocalizedString(30010) 
+message = xbmcaddon.Addon().getLocalizedString(30011) 
 xbmc.executebuiltin('Notification('+heading+','+message+',10000)')

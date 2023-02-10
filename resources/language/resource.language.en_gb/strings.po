@@ -32,26 +32,30 @@ msgid "Update Filter Names"
 msgstr "Update Filter Names"
 
 msgctxt "#30005"
+msgid "Show Picture Information on Slides"
+msgstr "Show Picture Information on Slides"
+
+msgctxt "#30006"
 msgid "Slideshow settings error"
 msgstr "Slideshow settings error"
 
-msgctxt "#30006"
+msgctxt "#30007"
 msgid "Filter name was not specified"
 msgstr "Filter name was not specified"
 
-msgctxt "#30007"
+msgctxt "#30008"
 msgid "Filtername '%s' not found in MyPictures Database"
 msgstr "Filtername '%s' not found in MyPictures Database"
 
-msgctxt "#30008"
+msgctxt "#30009"
 msgid "No files match filter '%s'in MyPictures Database"
 msgstr "No files match filter '%s'in MyPictures Database"
 
-msgctxt "#30009"
+msgctxt "#30010"
 msgid "Filter Names Updated"
 msgstr "Filter Names Updated"
 
-msgctxt "#30010"
+msgctxt "#30011"
 msgid "Exit from 'Settings' and return to see new Filter Names"
 msgstr "Exit from 'Settings' and return to see new Filter Names"
 
@@ -70,3 +74,7 @@ msgid "The name of the Filter to use for matching."
 msgctxt "#30104"
 msgstr "Help for Update Filter Names"
 msgid "Select this if the list of Filters to choose from is not up-to-date. After updating the Filter Names, you must exit from 'Settings' and return in order to see the updated Filter names."
+
+msgctxt "#30105"
+msgstr "Help for Ahow Picture Inforamtion on Slides"
+msgid "Select this to have information about the picture overlayed on top of the picture."

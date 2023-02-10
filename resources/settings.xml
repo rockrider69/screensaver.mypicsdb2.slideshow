@@ -50,6 +50,12 @@
 						</dependency>
 					</dependencies>
 				</setting>
+				<setting help="30105" id="tags" label="30005" type="boolean">
+					<description>Display picture information</description>
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle" />
+				</setting>
 			</group>
 		</category>
 	</section>
