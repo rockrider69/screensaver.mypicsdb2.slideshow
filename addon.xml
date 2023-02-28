@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="screensaver.mypicsdb2.slideshow" name="My Pictures Database Slideshow" version="1.0.0" provider-name="sfontes">
+<addon id="screensaver.mypicsdb2.slideshow" name="My Pictures Database Slideshow" version="1.1.0.3" provider-name="sfontes,rockrider69">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.mypicsdb2lib" version="19.4.0"/>
+		<import addon="script.module.exifread" version="2.1.2+matrix.0" />
 	</requires>
 	<extension point="xbmc.ui.screensaver" library="default.py" />
 	<extension point="xbmc.addon.metadata">
@@ -18,7 +19,13 @@
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
-		<news></news>
+		<news>v1.1.1 (PP)
+- use EXIF DateTimeOriginal instead of my EXIF UserComment to avoid multiple error message in Kodi log from Coolpix pictures
+v1.1.2 (PP)
+- Extract Description from picture path (last level folder) - to make it fully independant of my personal tags
+v1.1.0.3 (PP)
+- Transfer my above personal changes to Sfontes v1.1.0 base
+		</news>
 	</extension>
 	<extension point="xbmc.python.library" library="lib/getfilternames.py"/>
 </addon>

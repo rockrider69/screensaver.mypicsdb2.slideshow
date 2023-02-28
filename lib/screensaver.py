@@ -34,6 +34,9 @@ import xbmcaddon
 
 import mypicsdb.MypicsDB  as MypicsDB
 
+import exifread
+import xbmcvfs
+
 ADDON = xbmcaddon.Addon()
 
 SETTINGS_ERROR = ADDON.getLocalizedString(30006)
@@ -75,6 +78,20 @@ SINGLE_PICTURE_QUERY = SINGLE_PICTURE_QUERY.replace("LIKE '", "LIKE '%")
 # Get the Database from the My Pictures Database addon
 MPDB = MypicsDB.MyPictureDB()
 
+# Get local dateformat to localize the exif date tag
+DATEFORMAT = xbmc.getRegion('dateshort')
+
+# Tables for date cosmetics and filter out redundant year from folder name if any
+months = ('Jan','Fev','Mar','Avr','Mai','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
+years = [str(i+1900) for i in range(201)]
+
+# To read exif data from picture file
+class BinaryFile(xbmcvfs.File):
+    def read(self, numBytes: int = 0) -> bytes:
+        if not numBytes:
+            return b""
+        return bytes(self.readBytes(numBytes))
+
 class Screensaver(xbmcgui.WindowXMLDialog):
     def __init__(self, *args, **kwargs):
         pass
@@ -101,25 +118,39 @@ class Screensaver(xbmcgui.WindowXMLDialog):
         # Set the image controls from the xml we are going to use
         self.image1 = self.getControl(1)
         self.image2 = self.getControl(2)
-        # Get MyPicsDB tagids for the information that can be displayed for each slide
-        _query = " Select idTagType FROM TagTypes WHERE TagType = 'Headline'; "
-        _ids = self._exec_query(_query)
-        self.headline_tagid = _ids[0][0]
-        _query = " Select idTagType FROM TagTypes WHERE TagType = 'Caption/abstract'; "
-        _ids = self._exec_query(_query)
-        self.caption_tagid = _ids[0][0]
-        _query = " Select idTagType FROM TagTypes WHERE TagType = 'Sub-location'; "
-        _ids = self._exec_query(_query)
-        self.sublocation_tagid = _ids[0][0]
-        _query = " Select idTagType FROM TagTypes WHERE TagType = 'City'; "
-        _ids = self._exec_query(_query)
-        self.city_tagid= _ids[0][0]
-        _query = " Select idTagType FROM TagTypes WHERE TagType = 'Province/state'; "
-        _ids = self._exec_query(_query)
-        self.state_tagid= _ids[0][0]
-        _query = " Select idTagType FROM TagTypes WHERE TagType = 'Country/primary location name'; "
-        _ids = self._exec_query(_query)
-        self.country_tagid= _ids[0][0]
+        if (self.slideshow_showinfo):
+            # Get MyPicsDB tagids for the information that can be displayed for each slide
+            _query = " Select idTagType FROM TagTypes WHERE TagType = 'Headline'; "
+            _ids = self._exec_query(_query)
+            self.headline_tagid = _ids[0][0]
+            _query = " Select idTagType FROM TagTypes WHERE TagType = 'Caption/abstract'; "
+            _ids = self._exec_query(_query)
+            self.caption_tagid = _ids[0][0]
+            _query = " Select idTagType FROM TagTypes WHERE TagType = 'Sub-location'; "
+            _ids = self._exec_query(_query)
+            self.sublocation_tagid = _ids[0][0]
+            _query = " Select idTagType FROM TagTypes WHERE TagType = 'City'; "
+            _ids = self._exec_query(_query)
+            self.city_tagid= _ids[0][0]
+            _query = " Select idTagType FROM TagTypes WHERE TagType = 'Province/state'; "
+            _ids = self._exec_query(_query)
+            self.state_tagid= _ids[0][0]
+            _query = " Select idTagType FROM TagTypes WHERE TagType = 'Country/primary location name'; "
+            _ids = self._exec_query(_query)
+            self.country_tagid= _ids[0][0]
+
+        # Prepare Controls for bottom text overlay
+        # (outlines are for better contrast, brute but nicer than using just shadowcolor option)
+        self.placeanddatelabel1 = self.getControl(100)
+        self.outline101 = self.getControl(101)
+        self.outline102 = self.getControl(102)
+        self.outline103 = self.getControl(103)
+        self.outline104 = self.getControl(104)
+        self.placeanddatelabel2 = self.getControl(200)
+        self.outline201 = self.getControl(201)
+        self.outline202 = self.getControl(202)
+        self.outline203 = self.getControl(203)
+        self.outline204 = self.getControl(204)
 
     def _get_filtered_pictures(self):
         # If we are going to use a MyPicsDB filter, then get all of the possible pictures we could use to match the filter
@@ -174,6 +205,74 @@ class Screensaver(xbmcgui.WindowXMLDialog):
             self._set_prop('Fade%d' % order[1], '1')
             if (self.slideshow_showinfo):
                 self._set_info_fields(picture)
+
+            # Derive 'Place - Date' overlay infos from Picture path and EXIF DateTimeOriginal, and format
+            place = 'Somewhere...'
+            # Build Image Description from picture path - keep only the last folder level
+            head, tail = os.path.split(img_name)
+            folders = head.split('/')
+            place = folders[-1]
+            # Cosmetics ... filter out year if it exists in last level folder
+            matching = [m for m in years if m in place]
+            if matching:
+                place = place.replace(matching[0], '')
+                if not place.endswith(' '): place = place + ' '
+            else:
+                place = place + ' '
+
+            datetime = 'Date Unknown'
+            # Get proper Exif date tag and reformat to my taste ...
+            exiffile = BinaryFile(img_name)
+            exiftags = exifread.process_file(exiffile, details=False, stop_tag='EXIF DateTimeOriginal')
+            if 'EXIF DateTimeOriginal' in exiftags:
+                datetime = exiftags['EXIF DateTimeOriginal'].values
+                # sometimes exif date returns useless data, probably no date set on camera
+                if datetime == '0000:00:00 00:00:00':
+                    datetime = 'Date Useless'
+                else:
+                    try:
+                        # localize the date format
+                        date = datetime[:10].split(':')
+                        time = datetime[10:].split(':')
+                        if DATEFORMAT[1] == 'm':
+                            datetime = date[1] + ' ' + months[int(date[2])-1] + ' ' + date[0] + ' ' + time[0] + 'h' + time[1]
+                        elif DATEFORMAT[1] == 'd':
+                            datetime = date[2] + ' ' + months[int(date[1])-1] + ' ' + date[0] + ' ' + time[0] + 'h' + time[1]
+                        else:
+                            datetime = date[0] + ' ' + months[int(date[1])-1] + ' ' + date[2] + ' ' + time[0] + 'h' + time[1]
+                    except:
+                        pass
+            else:
+                # maybe an old scan or a whatsapp picture?... try to use my personal EXIF UserComment as a backup for date taken
+                exiftags = exifread.process_file(exiffile, details=True, stop_tag='EXIF UserComment')
+                if 'EXIF UserComment' in exiftags:
+                    datetime = str(exiftags['EXIF UserComment'])
+            exiffile.close()
+
+            # ... and display both infos as additional label
+            if current_image_control == self.image1:
+                self.outline101.setLabel(place + '- ' + datetime)
+                self.outline101.setVisible(True)
+                self.outline102.setLabel(place + '- ' + datetime)
+                self.outline102.setVisible(True)
+                self.outline103.setLabel(place + '- ' + datetime)
+                self.outline103.setVisible(True)
+                self.outline104.setLabel(place + '- ' + datetime)
+                self.outline104.setVisible(True)
+                self.placeanddatelabel1.setLabel(place + '- ' + datetime)
+                self.placeanddatelabel1.setVisible(True)
+            else:
+                self.outline201.setLabel(place + '- ' + datetime)
+                self.outline201.setVisible(True)
+                self.outline202.setLabel(place + '- ' + datetime)
+                self.outline202.setVisible(True)
+                self.outline203.setLabel(place + '- ' + datetime)
+                self.outline203.setVisible(True)
+                self.outline204.setLabel(place + '- ' + datetime)
+                self.outline204.setVisible(True)
+                self.placeanddatelabel2.setLabel(place + '- ' + datetime)
+                self.placeanddatelabel2.setVisible(True)
+
             # define next image
             if current_image_control == self.image1:
                 current_image_control = self.image2

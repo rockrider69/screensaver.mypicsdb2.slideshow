@@ -3,3 +3,9 @@ v1.0.0
 v1.1.0
 - addedd support for mysql
 - added some information from image tags to display on screensaver images
+v1.1.1 (PP)
+- use EXIF DateTimeOriginal instead of my EXIF UserComment to avoid multiple error message in Kodi log from Coolpix pictures
+v1.1.2 (PP)
+- Extract Description from picture path (last level folder) - to make it more independant of my personal tags
+v1.1.0.3 (PP)
+- Transfer my changes to Sfontes v1.1.0 base

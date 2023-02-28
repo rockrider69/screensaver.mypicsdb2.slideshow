@@ -18,12 +18,142 @@
 				</animation>
 				<aspectratio>keep</aspectratio>
 			</control>
+			<control type="label" id="101">
+                <description>Commentaire et Date PP - Outline1</description>
+                <posx>22</posx>
+                <posy>58r</posy>
+                <width>1880</width>
+                <height>50</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font45_title</font>
+                <textcolor>black</textcolor>
+                <animation effect="fade" time="1000">WindowOpen</animation>
+                <animation effect="fade" time="1000">WindowClose</animation>
+            </control>
+            <control type="label" id="102">
+                <description>Commentaire et Date PP - Outline2</description>
+                <posx>18</posx>
+                <posy>62r</posy>
+                <width>1880</width>
+                <height>50</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font45_title</font>
+                <textcolor>black</textcolor>
+                <animation effect="fade" time="1000">WindowOpen</animation>
+                <animation effect="fade" time="1000">WindowClose</animation>
+            </control>
+            <control type="label" id="103">
+                <description>Commentaire et Date PP - Outline3</description>
+                <posx>22</posx>
+                <posy>62r</posy>
+                <width>1880</width>
+                <height>50</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font45_title</font>
+                <textcolor>black</textcolor>
+                <animation effect="fade" time="1000">WindowOpen</animation>
+                <animation effect="fade" time="1000">WindowClose</animation>
+            </control>
+            <control type="label" id="104">
+                <description>Commentaire et Date PP - Outline4</description>
+                <posx>18</posx>
+                <posy>58r</posy>
+                <width>1880</width>
+                <height>50</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font45_title</font>
+                <textcolor>black</textcolor>
+                <animation effect="fade" time="1000">WindowOpen</animation>
+                <animation effect="fade" time="1000">WindowClose</animation>
+            </control>
+            <control type="label" id="100">
+                <description>Commentaire et Date PP</description>
+                <posx>20</posx>
+                <posy>60r</posy>
+                <width>1880</width>
+                <height>50</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font45_title</font>
+                <textcolor>orange</textcolor>
+                <animation effect="fade" time="1000">WindowOpen</animation>
+                <animation effect="fade" time="1000">WindowClose</animation>
+            </control>
 			<control type="image" id="2">
 				<description>image 2</description>
 				<animation type="Conditional" condition="String.IsEqual(Window.Property(Screensaver.Fade2),1)">
 					<effect type="fade" start="100" end="0" time="2000"/>
 				</animation>
 				<aspectratio>keep</aspectratio>
+			</control>
+			<control type="label" id="201">
+                <description>Commentaire et Date PP - Outline1</description>
+                <posx>22</posx>
+                <posy>58r</posy>
+                <width>1880</width>
+                <height>50</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font45_title</font>
+                <textcolor>black</textcolor>
+                <animation effect="fade" time="1000">WindowOpen</animation>
+                <animation effect="fade" time="1000">WindowClose</animation>
+            </control>
+            <control type="label" id="202">
+                <description>Commentaire et Date PP - Outline2</description>
+                <posx>18</posx>
+                <posy>62r</posy>
+                <width>1880</width>
+                <height>50</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font45_title</font>
+                <textcolor>black</textcolor>
+                <animation effect="fade" time="1000">WindowOpen</animation>
+                <animation effect="fade" time="1000">WindowClose</animation>
+            </control>
+            <control type="label" id="203">
+                <description>Commentaire et Date PP - Outline3</description>
+                <posx>22</posx>
+                <posy>62r</posy>
+                <width>1880</width>
+                <height>50</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font45_title</font>
+                <textcolor>black</textcolor>
+                <animation effect="fade" time="1000">WindowOpen</animation>
+                <animation effect="fade" time="1000">WindowClose</animation>
+            </control>
+            <control type="label" id="204">
+                <description>Commentaire et Date PP - Outline4</description>
+                <posx>18</posx>
+                <posy>58r</posy>
+                <width>1880</width>
+                <height>50</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font45_title</font>
+                <textcolor>black</textcolor>
+                <animation effect="fade" time="1000">WindowOpen</animation>
+                <animation effect="fade" time="1000">WindowClose</animation>
+            </control>
+			<control type="label" id="200">
+                <description>Commentaire et Date PP</description>
+                <posx>20</posx>
+                <posy>60r</posy>
+                <width>1880</width>
+                <height>50</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font45_title</font>
+                <textcolor>orange</textcolor>
+                <animation effect="fade" time="1000">WindowOpen</animation>
+                <animation effect="fade" time="1000">WindowClose</animation>
 			</control>
 		</control>
 		<control type="grouplist">
